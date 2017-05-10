@@ -1,0 +1,27 @@
+<div class="container">
+    <div  ng-include src="'templates/mu.html'"></div>
+    <h2>{{message}}</h2>
+    <form name="form_agregar">
+        
+        <label for="nombre" class="sr-only">Npmbre</label>
+        <input type="text" name="nombre" ng-model="newPost.nombre" placeholder="* Ingrese su Nombre" class="form-control" required>
+        <label for="apellido" class="sr-only">Apellido:</label>
+        <input type="text" name="apellido" ng-model="newPost.apellido" placeholder="* Ingrese su Apellido" class="form-control" required>
+        <label for="nombreUsuario" class="sr-only"> Nombre de Usuario:</label>
+        <input type="text" name="nombreUsuario" ng-model="newPost.nombreUsuario" placeholder="* Ingrese el nombre de usuario" class="form-control" required>
+        <label for="cleve" class="sr-only"></label>
+        <input type="password" name="clave" ng-model="newPost.clave" placeholder="* Ingrese la clave" class="form-control" required>
+        <label for="connfirmar" class="sr-only"> Confirmar clave:</label>
+        <input type="password" name="confirmar" ng-model="newPost.confirmar" placeholder="* Confirmar clave" class="form-control" required>
+        <label for="estatus" class="sr-only"> Tipo de usuario:</label>
+        <select name="estatus" ng-model="newPost.estatus" class="form-control" required>
+            <option value="">---</option>
+            <option value="Cliente">Cliente</option>
+            <option value="Administrador">Administrador</option>
+        </select>
+        <br>
+        <input type="submit" value="Guardar" class="btn btn-default" ng-click="addPost()">
+    </form>
+    <center>{{resultado | json}}</center>
+
+</div>

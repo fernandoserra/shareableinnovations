@@ -1,0 +1,11 @@
+<div class="container">
+    <div  ng-include src="'templates/mu.html'"></div>
+    <h2>Solicitar fondos</h2>
+    <form name="form_agregar">
+        <label for="monto" class="sr-only">Monto</label>
+        <input type="text" name="monto" ng-model="fondo.monto" placeholder="* Ingrese el Monto" class="form-control" required>
+        <br>
+        <input type="submit" value="Guardar" class="btn btn-default" ng-click="addFondos()">
+    </form>
+    <center>{{resultado | json}}</center>
+</div>

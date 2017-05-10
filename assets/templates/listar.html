@@ -1,0 +1,48 @@
+<div class="container">
+    <div  ng-include src="'templates/mu.html'"></div>
+    <h2>{{message}}</h2>
+    <div ng-show="!loading && posts.length<=0"> No se encontraron resultados</div>
+        <div class="row" ng-show="posts.length > 0" class="animated">
+            <ul class="list-group" >
+                <li class="list-group-item"  ng-repeat="post in posts|filter:buscador">
+                    <div class="pull-right"> 	
+                        <a href="" ng-click="detallesUsuarios(post)" class="btn btn-success btn-xs"><i class="fa fa-search" aria-hidden="true"></i></a>
+                        <a href="" ng-click="ModificarUsuarios(post)" class="btn btn-success btn-xs"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                        <a href="" ng-click="EliminarUsuarios(post.id)" class="btn btn-success btn-xs"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </div>		
+                    {{post.nombre}} 					
+                </li>
+            </ul>
+    </div>
+	<script type="text/ng-template" id="DetallesUsuarios">
+		<form name='form_agregar' novalidate>
+	        <div class="ngdialog-message">
+	            <h2>Detalles Usuario</h2><hr>
+                <p><strong>Nombre:</strong> {{post_u.nombre}} </p>
+                <p><strong>Tipo de usuario:</strong> {{post_u.estatus}} </p>
+                 <p><strong>Solicitado:</strong> {{post_u.createdAt}} </p>
+			</div>
+			<div class="ngdialog-buttons">
+				<button class="inline close-this-dialog ngdialog-button btn-success" ng-click="closeThisDialog()">Cerrar</button>
+			</div>
+		</form>	
+    </script>
+	<script type="text/ng-template" id="ModificarUsuaP">
+		<form name='form_agregar' novalidate>
+	        <div class="ngdialog-message">
+	            <h2>Modificar Usuario</h2><hr>
+                <input type="text" name="NroDeclaracion" ng-model="post_u.nombre" class="form-control inp_f" 
+					placeholder="Titulo"  required >
+                    
+                <input type="text" name="NroDeclaracion" ng-model="post_u.estatus" class="form-control inp_f" 
+					placeholder="Titulo"  required >
+                 <p><strong>Creado:</strong> {{post_u.createdAt}} </p>
+			</div>
+			<div class="ngdialog-buttons">
+				<button class="inline close-this-dialog ngdialog-button btn-success" ng-click="closeThisDialog()">Cerrar</button>
+				<input type="submit" value="Modificar" ng-click="addPost()" ng-disabled='!form_agregar.$valid' 
+				class="ngdialog-button btn-primary">
+			</div>
+		</form>	
+    </script>
+</div>

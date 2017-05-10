@@ -1,0 +1,95 @@
+<div class="container">
+    <div  ng-include src="'templates/mu.html'"></div>
+    <div class="row">
+        <div class='col-md-3'>
+            <div class="recuadro" ng-init="items.total = {}">
+                <div ng-repeat="fondo in fondos">
+                    <div ng-init="items.total.monto = items.total.monto + fondo.monto"></div> 
+                </div >
+                <center>Total Solicitado</center>
+                <h2>{{items.total.monto+0}}</h2>
+            </div>
+        </div>
+        <div class='col-md-3'>
+            <div class="recuadro" ng-init="item.total = {}">
+                <div ng-repeat="fondo in fondos | filter:'Aprobada'">
+                    <div ng-init="item.total.monto = item.total.monto + fondo.monto"></div> 
+                </div >
+                <center>Aprobados</center>
+                <h2>{{item.total.monto+0}}</h2>
+            </div>
+        </div>
+        <div class='col-md-3'>
+              <div class="recuadro" ng-init="itemP.total = {}">
+                  <div ng-repeat="fondo in fondos | filter:'Pendiente'">
+                        <div ng-init="itemP.total.monto = itemP.total.monto + fondo.monto"></div> 
+                   </div >
+                   <center>Pendientes</center>
+                   <h2>{{itemP.total.monto+0}}</h2>
+              </div>
+        </div>
+        <div class='col-md-3'>
+              <div class="recuadro" ng-init="itemD.total = {}">
+                  <div ng-repeat="fondo in fondos | filter:'Denegada'">
+                        <div ng-init="itemD.total.monto = itemD.total.monto + fondo.monto"></div> 
+                   </div >
+                   <center>Denegados</center>
+                   <h2> {{itemD.total.monto+0}} </h2>
+              </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div ng-show="!loading && fondos.length<=0"> No se encontraron resultados</div>
+        <div class="col-md-12" ng-show="fondos.length > 0" class="animated">
+                <ul class="list-group" >
+                    <li class="list-group-item"  ng-repeat="fondo in fondos|filter:buscador">
+                        <div class="pull-right"> 	
+                            <a href="" ng-click="detallesFdo(fondo)" class="btn btn-success btn-xs"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            <a href="" ng-click="modificarRegIni(fondo)" class="btn btn-success btn-xs"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <a href="" class="btn btn-success btn-xs"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </div>		
+                        {{fondo.estatus}}
+                        <div ng-bind="{{fondo.monto}}">{{fondo.monto}} </div>					
+                    </li>
+                </ul>
+        </div>
+     </div>   
+    <hr>
+	<script type="text/ng-template" id="DetallesFd">
+		<form name='form_agregar' novalidate>
+	        <div class="ngdialog-message">
+	            <h2>Detalles Registro</h2><hr>
+                <p><strong>Monto:</strong> {{post_r.monto}} </p>
+                <p><strong>Estatus:</strong> {{post_r.estatus}} </p>
+                 <p><strong>Solicitado:</strong> {{post_r.createdAt}} </p>
+			</div>
+			<div class="ngdialog-buttons">
+				<button class="inline close-this-dialog ngdialog-button btn-success" ng-click="closeThisDialog()">Cerrar</button>
+			</div>
+		</form>	
+    </script>
+	<script type="text/ng-template" id="ModificarFd">
+		<form name='form_agregar' novalidate>
+	        <div class="ngdialog-message">
+	            <strong><p>Modificar Registro</p></strong>
+					<input type="text" name="monto" ng-model="post_r.monto" class="form-control inp_f" 
+					placeholder="Titulo"  required >
+					<textarea class="form-control" ng-model="post_r.mensaje" rows="6" id="textArea" placeholder="Mensaje"></textarea>	
+					<select class=form-control ng-model="post_r.estatus" disabled>
+                        <option value="{{post_r.estatus}}" >{{post_r.estatus}}</option>
+						<option value="Aprobada">Aprobada</option>
+                        <option value="Denegada">Denegada</option>
+                    </select>
+                    <input type="hidden" name="id" ng-model="post_r.id" class="form-control inp_f" 
+					 required >
+                    <center>{{resultado | json}}</center>	            
+			</div>
+			<div class="ngdialog-buttons">
+				<button class="inline close-this-dialog ngdialog-button btn-success" ng-click="closeThisDialog()">Cerrar</button>
+				<input type="submit" value="Modificar" ng-click="modificarPri()" ng-disabled='!form_agregar.$valid' 
+				class="ngdialog-button btn-primary">
+			</div>
+		</form>	
+    </script>
+</div>

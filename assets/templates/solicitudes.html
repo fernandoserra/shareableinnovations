@@ -1,0 +1,56 @@
+<div class="container">
+    <div  ng-include src="'templates/mu.html'"></div>
+    <h2>Solicitudes</h2>
+    <div class="row">
+        <div ng-show="!loading && solicitudes.length<=0"> No se encontraron resultados</div>
+        <div class="col-md-12" ng-show="solicitudes.length > 0" class="animated">
+                <ul class="list-group" >
+                    <li class="list-group-item"  ng-repeat="solicitud in solicitudes|filter:buscador">
+                        <div class="pull-right"> 	
+                            <a href="" ng-click="DetallesRegSol(solicitud)" class="btn btn-success btn-xs"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            <a href="" ng-click="modificarRegSol(solicitud)" class="btn btn-success btn-xs"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <a href="" class="btn btn-success btn-xs"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </div>		
+                        {{solicitud.estatus}}
+                        <div ng-bind="{{solicitud.monto}}">{{solicitud.monto}} </div>					
+                    </li>
+                </ul>
+        </div>
+    </div>
+	<script type="text/ng-template" id="DetallesRegistroS">
+		<form name='form_agregar' novalidate>
+	        <div class="ngdialog-message">
+	            <h2>Detalles Registro</h2><hr>
+                <p><strong>Monto:</strong> {{post_r.monto}} </p>
+                <p><strong>Estatus:</strong> {{post_r.estatus}} </p>
+                 <p><strong>Solicitado:</strong> {{post_r.createdAt}} </p>
+			</div>
+			<div class="ngdialog-buttons">
+				<button class="inline close-this-dialog ngdialog-button btn-success" ng-click="closeThisDialog()">Cerrar</button>
+			</div>
+		</form>	
+    </script>
+	<script type="text/ng-template" id="modificarRegistroS">
+		<form name='form_agregar' novalidate>
+	        <div class="ngdialog-message">
+	            <strong><p>Modificar Registro</p></strong>
+					<input type="text" name="NroDeclaracion" ng-model="post_r.monto" class="form-control inp_f" 
+					placeholder="Titulo"  required >
+					<textarea class="form-control" ng-model="post_r.mensaje" rows="6" id="textArea" placeholder="Mensaje"></textarea>	
+					<select class=form-control ng-model="post_r.estatus" ng-init="Aprobada">
+                        <option value="{{post_r.estatus}}" >{{post_r.estatus}}</option>
+						<option value="Aprobada">Aprobada</option>
+                        <option value="Denegada">Denegada</option>
+                    </select>
+                    <input type="hidden" name="id" ng-model="post_r.id" class="form-control inp_f" 
+					 required >
+                    <center>{{resultado | json}}</center>	            
+			</div>
+			<div class="ngdialog-buttons">
+				<button class="inline close-this-dialog ngdialog-button btn-success" ng-click="closeThisDialog()">Cerrar</button>
+				<input type="submit" value="Modificar" ng-click="modificarSol()" ng-disabled='!form_agregar.$valid' 
+				class="ngdialog-button btn-primary">
+			</div>
+		</form>	
+    </script>
+</div>
